@@ -1,0 +1,33 @@
+<html>
+        <head>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+            <title>Trip Dashboard</title>
+        </head>
+        <body>
+            {% if messages %}
+                <div class="row">
+                    {% for message in messages %}
+                    <p>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            <div class="row">
+                <h1>Add a new user</h1>
+                <div class="six columns">
+                    <form action="new" method="POST">
+                    {% csrf_token %}
+                    <label for="destination">Destination:</label>
+                    <input type="text" name="destination">
+                    <label for="description">Description:</label>
+                    <input type="text" name="description">
+                    <label for="start_date">Travel Date From:</label>
+                    <input type="date" name="start_date">
+                    <label for="end_date">Travel Date To:</label>
+                    <input type="date" name="end_date">
+                    <input class="button-primary" type="submit" value="Create"><br>
+                    </form>
+                </div>
+                <a href="/travels">Go Back</a>
+                <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </body>

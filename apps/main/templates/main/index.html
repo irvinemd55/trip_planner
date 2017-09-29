@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+        <title>User Dashboard</title>
+    </head>
+    <h1>Welcome!</h1>
+    {% if messages %}
+    <div class="row">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+<div class="row">
+    <h3>Register</h3>
+    <form action="/register_user" method="POST">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" name="name">
+    <label for="username">Username:</label>
+    <input type="text" name="username">
+    <label for="password">Password:</label>
+    <input type="password" name="password">
+    <label for="conf_password">Password Confirmation:</label>
+    <input type="password" name="conf_password"><br>
+    <input class="button-primary" type="submit" value="Register"><br>
+    </form>
+   </div>
+   {% if messages %}
+   <div class="row">
+       {% for message in messages %}
+       <p>{{ message }}</p>
+       {% endfor %}
+   {% endif %}
+   </div>
+   <div class="row">
+       <h3>Sign in</h3>
+       <form action="/authenticate" method="POST">
+        {% csrf_token %}
+       <label for="username">Username:</label>
+       <input type="text" name="username">
+       <label for="password">Password:</label>
+       <input type="password" name="password">
+       <input class="button-primary" type="submit" value="Login"><br>
+       </form>
+    </div>
+</body>
+</body>

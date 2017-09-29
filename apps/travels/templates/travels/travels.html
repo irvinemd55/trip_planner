@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Travel Dashboard</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+    </head>
+    <body>
+        <div class= "container">
+        <h1>Hello! {{user.name}}!</h1>
+        <div class = "row">
+            <h1>Logout</h1>
+                <form action="/logout" method="POST">
+                {% csrf_token %}
+                   <input class="button-primary" type="submit" value="Logout">
+                </form>
+        </div>
+        <h4>Your Trip Schedule</h4>
+        <table class="u-full-width">
+                <thead>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Travel Start Date</th>
+                        <th>Travel End Date</th>
+                        <th>Plan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trip in trips %}
+                    {% for participant in trip.participants.all %}
+                    {% if participant.id == user.id %}
+                    <tr>
+                      <td><a href="/travels/destination/{{ trip.id }}">{{ trip.destination }}</a></td>
+                      <td>{{ trip.start_date }}</td>
+                      <td>{{ trip.end_date }}</td>
+                      <td>{{ trip.description }}</td>
+                      {% endif %}
+                      {% endfor %}
+                      </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h4>Other User's Travel Plans</h4>
+            <table class="u-full-width">
+            <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Destination</th>
+                        <th>Travel Start Date</th>
+                        <th>Travel End Date</th>
+                        <th>Do you want to join?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trip in trips %}
+                    {% if trip.planner.id != user.id %}
+                    {% for participant in trip.participants.all %}
+                    {% if participant.id != user.id %}
+                    
+                    <tr>
+                      <td>{{ trip.planner }}</td>
+                      <td><a href="/travels/destination/{{ trip.id }}">{{ trip.destination }}</a></td>
+                      <td>{{ trip.start_date }}</td>
+                      <td>{{ trip.end_date }}</td>
+                      <td><a href="/travels/join/{{ trip.id }}">Join</a></td>
+                     
+                      {% endif %}
+                      {% endfor %}
+                      {% endif %}
+                      </tr>
+                    {% endfor %}
+                </tbody>
+            </table>    
+    </div>
+    <a href="/travels/add">Add Travel Plan</a>   
+    </body>
+</html>

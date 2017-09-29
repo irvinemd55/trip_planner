@@ -1,0 +1,25 @@
+<html>
+        <head>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+            <title>Travel Dashboard</title>
+        </head>
+        <body>
+            <div class="container">
+             <div class="row">
+                <h2>{{trip.destination}}</h2>
+                <h4>Planned By: {{trip.planner}}</h4>
+                <h4>Description: {{trip.description}}</h4>
+                <h4>Travel Date From: {{trip.start_date}}</h4>
+                <h4>Travel Date To: {{trip.end_date}}</h4>
+             </div><br>
+             <div class="row">
+                <h3>Other user's joining the trip</h3>
+                {% for participant in trip.participants.all %}
+                <h4>{{participant.name}}</h4>
+                {% endfor %}
+             </div>
+            <a href="/travels">Go Back</a>
+             <a href="/logout">Logout</a>
+            </div>
+        </body>
+    </html>
